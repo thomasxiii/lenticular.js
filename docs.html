@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://use.typekit.com/yoe8gdj.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<title>lenticular.js - tilt-controlled images</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/base.css">
+	<script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-12900000-9']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	</script>
+</head>
+<body class="docs">
+
+<header>
+	<div class="logo">
+		<a href="http://attasi.com"></a>
+	</div>
+	<hgroup>
+		<h1>lenticular.js</h1>
+		<h2>tilt-controlled images from your pal <a href="http://twitter.com/attasi">@attasi</a></h2>
+	</hgroup>
+	<nav>
+		<ul>
+			<li><a href="/">examples</a></li>
+			<li><a href="docs.html" class="current">docs</a></li>
+			<li><a href="https://github.com/thomasxiii/lenticular.js">github</a></li>
+			<li><a href="http://twitter.com/share?url=http%3A%2F%2Flenticular.attasi.com&related=attasi&text=lenticular.js%20-%20tilt-controlled%20images%20by%20@attasi" target="_blank">tweet</a></li>
+			<li><a href="js/lenticular.min.js" class="download-btn">download</a></li>
+		</ul>
+	</nav>
+</header>
+
+<article class="docs-wrapper">
+	<section>
+		<h3>Introduction</h3>
+		<p>Remember those cards from the bottom of the Cracker Jack box – the ones that changed images as they were tilted? Well, lenticular.js brings that interaction to the iPhone. It can be used for fancy-pants product views or just to slather some whimsy onto a boring.jpg. Check out the <a href="/">examples</a> on your iPhone.</p>
+		<p>Built by your pal Tom Giannattasio (<a href="http://twitter.com/attasi">@attasi</a>).</p>
+	</section>
+	<section>
+		<h3>Quick Start</h3>
+		<section>
+			<h4>Create a sequence of images</h4>
+			<p>Save each frame of the sequence with a standardized name and be sure to include the frame number. For example: <code>sasquatch-1.jpg</code>, <code>sasquatch-2.jpg</code>, <code>sasquatch-3.jpg</code> and so on.</p>
+			<p>Headache prevention: don't add leading zeros in the frame numbers.</p>
+		</section>
+		<section>
+			<h4>Initialize the lenticular</h4>
+			<p>The <code>Lenticular.Image</code> constructor requires two important arguments. The first is the target element in which to load the image sequence. The second is an object with the lenticular's settings.</p>
+			<p>The settings object has numerous properties, but only two are required: <code>images</code> and <code>frames</code>. The <code>images</code> property is a string specifying the image path format. Lenticular.js looks for a double hash <code>##</code> and will insert the appropriate frame number when loading images. The <code>frames</code> property sets the number of frames to be loaded.</p>
+<pre>
+<code><span class="comment">// create a lenticular with 16 frames</span>
+<span class="var">var</span> myLenticular = <span class="keyword">new</span> Lenticular.Image(<span class="keyword">$</span>(<span class="string">'.lenticular'</span>)[0], {
+  images: <span class="string">'images/lenticular-##.jpg'</span>,
+  frames: <span class="num">16</span>
+});</code>
+</pre>
+		</section>
+	</section>
+	<section class="library">
+		<h3>Library Reference</h3>
+		<section>
+			<dl>
+				<dt><code>Lenticular.Image( element, settings )</code><br /><em>constructor</em></dt>
+				<dd>
+					<p>Creates a new <code>Image</code> object. </p>
+					<dl class="property-list">
+						<dt><code>element</code><em>:object</em></dt>
+						<dd>
+							<p>The DOM element into which the images will be loaded. A <code>load</code> event is dispatched from this element when all frames have been loaded.</p>
+						</dd>
+
+						<dt><code>settings</code><em>:object</em></dt>
+						<dd>
+							<p>Requires two properties: <code>images</code> and <code>frames</code>. Other settings are optional.</p>
+							<dl class="property-list">
+								<dt><code>axis</code><em>:string</em></dt>
+								<dd>
+									<p>The logical axis – <code>x</code>, <code>y</code> or <code>z</code> – upon which tilt values will be based. Lenticular.js will automatically adjust to follow the logical axis in both landscape and portrait mode.</p>
+								</dd>
+
+								<dt><code>frames</code><em>:int</em></dt>
+								<dd>
+									<p>The number of frames in the image sequence.</p>
+								</dd>
+
+								<dt><code>images</code><em>:string</em></dt>
+								<dd>
+									<p>The image path format to use when loading images. A double hash <code>##</code> should be used to denote where the frame number is to be inserted. For example: <code>lenticular-##.jpg</code> would load images <code>lenticular-1.jpg</code>, <code>lenticular-2.jpg</code>, <code>lenticular-3.jpg</code> and so on.</p>
+								</dd>
+
+								<dt><code>isActive</code><em>:boolean</em></dt>
+								<dd>
+									<p>If set to <code>false</code>, frames will not automatically update based on tilt. Defaults to <code>true</code>.</p>
+								</dd>
+
+								<dt><code>maxTilt</code><em>:float</em></dt>
+								<dd>
+									<p>The maximum number of degrees the lenticular can be tilted. Defaults to <code>10</code>.</p>
+								</dd>
+
+								<dt><code>minTilt</code><em>:float</em></dt>
+								<dd>
+									<p>The minimum number of degrees the lenticular can be tilted. Defaults to <code>-10</code>.</p>
+								</dd>								
+
+								<dt><code>useTilt</code><em>:boolean</em></dt>
+								<dd>
+									<p>Specifies whether or not to automatically show frames based on the device's tilt. Defaults to <code>true</code></p>
+								</dd>
+							</dl>
+						</dd>
+					</dl>
+				</dd>
+
+				<dt><code>activate()</code><br /><em>method</em></dt>
+				<dd><p>Tells lenticular to listen for tilt and update frames accordingly.</p></dd>
+
+				<dt><code>deactivate()</code><br /><em>method</em></dt>
+				<dd><p>Stops listening for tilt. Frame updates on deactivated lenticulars must be done using the <code>showFrame</code> method.</p></dd>
+
+				<dt><code>destroy()</code><br /><em>method</em></dt>
+				<dd><p>Removes the image from the global Lenticular object. This is useful in optimizing performance.</p></dd>
+
+				<dt><code>showFrame( index )</code><br /><em>method</em></dt>
+				<dd><p>Manually shows a frame. This is most useful when <code>useTilt = false;</code>.</p></dd>
+			</dl>
+		</section>
+	</section>
+</article>
+
+</body>
+</html>
