@@ -57,6 +57,10 @@
 			<p>Headache prevention: don't add leading zeros in the frame numbers.</p>
 		</section>
 		<section>
+			<h4>Setup the lenticular element</h4>
+			<p>Create an empty element for the lenticulars to be added into. Be sure to set a width and height; the images in the lenticular will scale to fit within the dimensions provided.</p>
+		</section>
+		<section>
 			<h4>Initialize the lenticular</h4>
 			<p>The <code>Lenticular.Image</code> constructor requires two important arguments. The first is the target element in which to load the image sequence. The second is an object with the lenticular's settings.</p>
 			<p>The settings object has numerous properties, but only two are required: <code>images</code> and <code>frames</code>. The <code>images</code> property is a string specifying the image path format. Lenticular.js looks for a double hash <code>##</code> and will insert the appropriate frame number when loading images. The <code>frames</code> property sets the number of frames to be loaded.</p>
